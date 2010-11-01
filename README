@@ -1,5 +1,3 @@
-*tcommand.txt*      Select and execute a command or menu item from a list
-
 VIM plugins are cool but with time you forget about even useful 
 commands. This plugin provides a command (|:TCommand|) that lets you 
 select a command from a list (you can optionally display help on the 

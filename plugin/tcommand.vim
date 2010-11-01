@@ -1,10 +1,10 @@
 " @Author:      Tom Link (micathom AT gmail com?subject=[vim])
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
-" @GIT:         http://github.com/tomtom/vimtlib/
+" @GIT:         http://github.com/tomtom/tcommand_vim/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-03-12.
-" @Last Change: 2010-08-10.
-" @Revision:    18
+" @Last Change: 2010-10-24.
+" @Revision:    19
 " GetLatestVimScripts: 3013 0 :AutoInstall: tcommand.vim
 " Select and execute a command or menu item from a list
 
