@@ -3,8 +3,8 @@
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-03-12.
-" @Last Change: 2010-08-10.
-" @Revision:    259
+" @Last Change: 2011-12-29.
+" @Revision:    262
 
 let s:save_cpo = &cpo
 set cpo&vim
@@ -67,11 +67,13 @@ function! tcommand#Select(reset, filter) "{{{3
         for [what, def] in items(g:tcommand#what)
             call call(def.collect, [what, def, s:commands])
         endfor
+        " echom "DBG tcommand#Select" string(s:commands)
         if !empty(g:tcommand#hide_rx)
             call filter(s:commands, 'v:val !~ g:tcommand#hide_rx')
         endif
     endif
     let w.base = s:commands
+    " TLogVAR len(w.base)
     let v = winsaveview()
     let help = 0
     windo if &ft == 'help' | let help = 1 | endif
