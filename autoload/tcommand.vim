@@ -4,7 +4,7 @@
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-03-12.
 " @Last Change: 2012-02-07.
-" @Revision:    268
+" @Revision:    292
 
 let s:save_cpo = &cpo
 set cpo&vim
@@ -109,7 +109,7 @@ function! tcommand#Info(world, selected) "{{{3
     " TLogVAR a:selected
     let bufnr = bufnr('%')
     try
-        let [item, type, modifier, nargs] = split(a:selected[0], '\t')
+        let [item, comment, type, modifier, nargs] = split(a:selected[0], '\t')
         if type ==# 'C' && !empty(item)
             let vert = get(g:tcommand#world, 'scratch_vertical', 0) || winwidth(0) < 140 ? 'above' : 'vert'
             exec vert .' help '. item
