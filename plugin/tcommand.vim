@@ -18,7 +18,7 @@ if !exists('g:loaded_tlib') || g:loaded_tlib < 36
         finish
     endif
 endif
-let loaded_tcommand = 2
+let loaded_tcommand = 3
 
 
 " :display: TCommand[!] [INITIAL_FILTER]
