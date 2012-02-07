@@ -4,7 +4,7 @@
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-03-12.
 " @Last Change: 2012-02-07.
-" @Revision:    265
+" @Revision:    268
 
 let s:save_cpo = &cpo
 set cpo&vim
@@ -125,16 +125,13 @@ function! s:CollectCommands(type, def, acc) "{{{3
     let commands0 = tlib#cmd#OutputAsList('verbose command')
     let ncommands0 = len(commands0)
     let commands = []
-    for i in range(1, ncommands0 / 2 - 1, 2)
+    for i in range(1, ncommands0 - 1, 2)
         let cmd0 = commands0[i]
         let src  = substitute(commands0[i + 1], '^\s\+', '', '')
         let cmd  = s:FormatCommand(a:type, cmd0, src)
         " TLogVAR i, cmd0, src, cmd
         call add(commands, cmd)
     endfor
-    " let commands = tlib#cmd#OutputAsList('command')
-    " call remove(commands, 0)
-    " call map(commands, 's:FormatCommand(a:type, v:val)')
     call extend(a:acc, commands)
 endf
 
