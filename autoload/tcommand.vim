@@ -3,8 +3,8 @@
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-03-12.
-" @Last Change: 2011-12-29.
-" @Revision:    262
+" @Last Change: 2012-02-07.
+" @Revision:    265
 
 let s:save_cpo = &cpo
 set cpo&vim
@@ -169,9 +169,12 @@ function! s:FormatItem(item, comment, type, modifier, nargs) "{{{3
     let width = get(g:tcommand#world, 'scratch_vertical', 0) ? 30 : (winwidth(0) - 4)
     let item = a:item
     if !empty(a:comment)
-        let item .= "\t(". a:comment .")"
+        " TLogVAR a:comment
+        let thecomment = "(". a:comment .")"
+    else
+        let thecomment = " "
     endif
-    return printf("%-". width ."s\t%s\t%s\t%s", item, a:type, a:modifier, a:nargs)
+    return printf("%-". width ."s\t%s\t%s\t%s\t%s", item, thecomment, a:type, a:modifier, a:nargs)
 endf
 
 
