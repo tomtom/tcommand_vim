@@ -1,0 +1,12 @@
+0.1
+- Initial release
+
+0.2
+- Default to horizontal split
+- Optional integration with WhereFrom
+- Missed nore menus items
+- Display help on pressing f1 (not <c-o>)
+- Don't automatically select the only item matching the filter
+- Favourites
+- Include the file where a command was defined in the list.
+
