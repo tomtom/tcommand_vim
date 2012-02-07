@@ -75,14 +75,19 @@ function! tcommand#Select(reset, filter) "{{{3
     let w.base = s:commands
     " TLogVAR len(w.base)
     let v = winsaveview()
+    let wrc = winrestcmd()
+    let winnr = winnr()
     let help = 0
     windo if &ft == 'help' | let help = 1 | endif
+    exec winnr 'wincmd w'
     try
         let item = tlib#input#ListD(w)
     finally
         if !help
             silent! windo if &ft == 'help' | exec 'wincmd c' | endif
+            exec winnr 'wincmd w'
         endif
+        exec wrc
         call winrestview(v)
         redraw
     endtry
