@@ -27,7 +27,11 @@ if !exists('g:tcommand#world')
 
     function! g:tcommand#world.SetStatusline(query) dict "{{{3
         echo
-        echo self.DisplayFilter() .': '. substitute(self.CurrentItem(), '\s\+\t.*$', '', '')
+        let filter = self.DisplayFilter()
+        if !empty(filter)
+            let filter .= ' '
+        endif
+        echo  filter .':'. substitute(self.CurrentItem(), '\s\+\t.*$', '', '')
         " echo self.DisplayFilter() .': '. matchstr(self.CurrentItem(), '^\S\+')
     endf
 endif
