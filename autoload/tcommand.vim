@@ -3,8 +3,8 @@
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-03-12.
-" @Last Change: 2012-02-07.
-" @Revision:    292
+" @Last Change: 2012-09-19.
+" @Revision:    320
 
 let s:save_cpo = &cpo
 set cpo&vim
@@ -54,6 +54,10 @@ TLet g:tcommand#what = {
             \ }
 
 
+" If true, include commands from the |:history|.
+TLet g:tcommand#include_history = 1
+
+
 " A collection of favourite commands (pairs of DISPLAY_NAME => EX_COMMAND).
 TLet g:tcommand#favourites = {}
 
@@ -76,7 +80,24 @@ function! tcommand#Select(reset, filter) "{{{3
             call filter(s:commands, 'v:val !~ g:tcommand#hide_rx')
         endif
     endif
-    let w.base = s:commands
+    if g:tcommand#include_history
+        redir => historys
+        silent history c
+        redir END
+        let history_commands = []
+        let history = split(historys, '\n')
+        for line in history
+            let cmd0 = matchstr(line, '^>\?\s\+\d\+\s\+\zs.\+')
+            if !empty(cmd0) && cmd0 !~ g:tcommand#hide_rx
+                let cmd = s:FormatItem(cmd0, 'history', 'C', '!', '?')
+                call add(history_commands, cmd)
+            endif
+        endfor
+        let w.base = reverse(history_commands) + s:commands
+    else
+        let w.base = s:commands
+    endif
+    " TLogVAR len(commands)
     " TLogVAR len(w.base)
     let v = winsaveview()
     let wrc = winrestcmd()
@@ -131,16 +152,19 @@ endf
 
 
 function! s:CollectCommands(type, def, acc) "{{{3
+    let commands = []
     let commands0 = tlib#cmd#OutputAsList('verbose command')
     let ncommands0 = len(commands0)
-    let commands = []
     for i in range(1, ncommands0 - 1, 2)
         let cmd0 = commands0[i]
         let src  = substitute(commands0[i + 1], '^\s\+', '', '')
         let cmd  = s:FormatCommand(a:type, cmd0, src)
         " TLogVAR i, cmd0, src, cmd
-        call add(commands, cmd)
+        if !empty(cmd)
+            call add(commands, cmd)
+        endif
     endfor
+    " TLogVAR len(commands)
     call extend(a:acc, commands)
 endf
 
@@ -160,14 +184,19 @@ endf
 
 
 function! s:MatchCommand(string) "{{{3
-    let match = matchlist(a:string, '\([!"b ]\)\s\+\(\S\+\)\s\+\(.\)')
+    let match = matchlist(a:string, '^\([!" ]\)\s\([b ]\)\s\+\(\S\+\)\s\+\(.\)')
     return match
 endf
 
 
 function! s:FormatCommand(type, cmd0, src) "{{{3
     let match = s:MatchCommand(a:cmd0)
-    return s:FormatItem(match[2], a:src, a:type, match[1], match[3])
+    " TLogVAR a:cmd0, match
+    if match[2] ==# 'b'
+        return ''
+    else
+        return s:FormatItem(match[3], a:src, a:type, match[1], match[4])
+    endif
 endf
 
 
