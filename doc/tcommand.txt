@@ -34,11 +34,12 @@ Suggested maps (to be set in your |vimrc| file): >
 ========================================================================
 Contents~
 
-        :TCommand ............... |:TCommand|
-        g:tcommand#hide_rx ...... |g:tcommand#hide_rx|
-        g:tcommand#what ......... |g:tcommand#what|
-        g:tcommand#favourites ... |g:tcommand#favourites|
-        tcommand#Select ......... |tcommand#Select()|
+        :TCommand .................... |:TCommand|
+        g:tcommand#hide_rx ........... |g:tcommand#hide_rx|
+        g:tcommand#what .............. |g:tcommand#what|
+        g:tcommand#include_history ... |g:tcommand#include_history|
+        g:tcommand#favourites ........ |g:tcommand#favourites|
+        tcommand#Select .............. |tcommand#Select()|
 
 
 ========================================================================
@@ -63,6 +64,10 @@ g:tcommand#what
        - Commands
        - Menu items
        - Faviourite commands (see |g:tcommand#favourites|)
+
+                                                    *g:tcommand#include_history*
+g:tcommand#include_history     (default: 1)
+    If true, include commands from the |:history|.
 
                                                     *g:tcommand#favourites*
 g:tcommand#favourites          (default: {})
